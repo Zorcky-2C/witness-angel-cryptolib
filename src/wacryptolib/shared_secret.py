@@ -26,7 +26,7 @@ def split_bytestring_as_shamir_shares(
     # Split the private key into N tuples of 16 bytes in order to split each of them into shares
     # and add the value 0 at the end of the last tuple if there is not enough values to have 16 bytes
     split_prkey = split_as_padded_chunks(bytestring, 16)
-    chunks = tuple(split_prkey)
+    chunks = tuple(split_prkey)  # Fixme useless
 
     # Split the chunks into share
     for chunk in chunks:
@@ -34,7 +34,7 @@ def split_bytestring_as_shamir_shares(
         all_shares.append(shares)
 
     all_shares = list(itertools.chain(*all_shares))
-    return all_shares
+    return all_shares  # FIXME, this func must return 3 long bytestrings, each with all the shares of index i
 
 
 def reconstruct_bytestring(shares: List, shares_count: int, length: int) -> bytes:
@@ -47,7 +47,7 @@ def reconstruct_bytestring(shares: List, shares_count: int, length: int) -> byte
 
     :return: the key reconstructed as bytes"""
 
-    shares = split_as_padded_chunks(shares, shares_count)
+    shares = split_as_padded_chunks(shares, shares_count)  # FIXME???
     combined_shares = _recombine_shares_into_bytestring(shares)
     if length % 16 != 0:
         combined_shares[-1] = unpad(combined_shares[-1], 16)
@@ -85,4 +85,4 @@ def _recombine_shares_into_bytestring(shares: List[bytes]) -> List[bytes]:
     for slices in range(0, len(shares)):
         combined_share = Shamir.combine(shares[slices])
         combined_shares_list.append(combined_share)
-    return combined_shares_list
+    return combined_shares_list  # FIXME wrong type

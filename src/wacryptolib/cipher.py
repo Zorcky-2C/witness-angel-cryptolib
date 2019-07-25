@@ -12,7 +12,7 @@ def encrypt_via_aes_cbc(key: bytes, plaintext: bytes) -> bytes:
     :param key: the cryptographic key which will serve to decipher the cipher text
     :param plaintext: the text to cipher
 
-    :return: The initialization vector and the cipher text encoded in bytes encoded in base 64"""
+    :return: The initialization vector and the cipher text encoded in bytes encoded in base 64"""  # FIXME TYPO
 
     iv = get_random_bytes(AES.block_size)
     cipher = AES.new(key, AES.MODE_CBC, iv)
@@ -29,7 +29,7 @@ def decrypt_via_aes_cbc(key: bytes, ciphertext: bytes) -> bytes:
     :return: The decrypted text as bytes"""
 
     raw = b64decode(ciphertext)
-    decipher = AES.new(key, AES.MODE_CBC, raw[: AES.block_size])
+    decipher = AES.new(key, AES.MODE_CBC, raw[: AES.block_size])  # FIXME document iv
     decrypted_text = unpad(decipher.decrypt(raw[AES.block_size:]), AES.block_size)
     return decrypted_text
 
@@ -73,9 +73,9 @@ def encrypt_via_chacha20_poly1305(key: bytes, plaintext: bytes) -> bytes:
     :param key: the cryptographic key which will serve to cipher the plain text
     :param plaintext: the text to cipher
 
-    :return: the ciphertext as bytes and the nonce"""
+    :return: the ciphertext as bytes and the nonce""" # FIXME DOC
 
-    header = b"header"
+    header = b"header" # FIXME whatisthat
     cipher = ChaCha20_Poly1305.new(key=key)
     cipher.update(header)
     ciphertext, tag = cipher.encrypt_and_digest(plaintext)
@@ -120,7 +120,7 @@ def decrypt_via_rsa_oaep(key: bytes, ciphertext: bytes) -> bytes:
     :param key: the cryptographic key which will serve to decipher the cipher text
     :param ciphertext: the text to decipher
 
-    :return: the text deciphered"""
+    :return: the text deciphered""" # FIXME text->bytes
 
     decipher = PKCS1_OAEP.new(key)
     deciphertext = decipher.decrypt(ciphertext=ciphertext)

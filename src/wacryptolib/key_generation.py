@@ -36,7 +36,7 @@ def _generate_rsa_key_objects(keypair: bytes):
     return rsa_keypair
 
 
-def _serialize_rsa_key_objects_to_pem(keypair: dict):
+def _serialize_rsa_key_objects_to_pem(keypair: dict):  # FIXME take a SINGLE key in input
     """Generate a keypair of bytes from a keypair as RsaKey objects
 
     :param keypair: dict of public and private RSA keys as RsaKey objects

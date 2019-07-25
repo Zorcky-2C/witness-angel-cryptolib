@@ -77,9 +77,9 @@ def test_aes_eax():
         key=key, ciphertext=ciphertext, tag=tag, nonce=nonce
     )
 
-
 def test_sign_ecdsa():
-    # keypair = wacryptolib.key_generation.generate_dsa_keypair(None)
+
+    # keypair = wacryptolib.key_generation.generate_dsa_keypair(None)   # TODO TEST THIS TOO
     keypair = wacryptolib.key_generation.generate_ecc_keypair(None, curve="p256")
     public_key = keypair["public_key"]
     private_key = keypair["private_key"]
@@ -112,7 +112,7 @@ def test_chacha20():
     assert deciphertext == binary_content
 
 
-def test_oaep():
+def test_oaep():  # FIXME naming
     keypair = wacryptolib.key_generation.generate_rsa_keypair(None)
     binary_content = "Mon hât èst joli".encode("utf-8")
 
